@@ -1,5 +1,6 @@
 import "./style.css";
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { OrbitControls } from "three-stdlib";
 
 // Create a scene
 const scene = new Scene();
@@ -18,6 +19,10 @@ const renderer = new WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x090909);
 document.body.appendChild(renderer.domElement);
+
+// Add orbit controls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.update();
 
 // Animation loop
 renderer.setAnimationLoop(() => {
