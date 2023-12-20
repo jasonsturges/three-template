@@ -1,6 +1,7 @@
 import "./style.css";
 import {
   BoxGeometry,
+  CineonToneMapping,
   DirectionalLight,
   Mesh,
   MeshStandardMaterial,
@@ -30,6 +31,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x090909);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
+renderer.toneMapping = CineonToneMapping;
 document.body.appendChild(renderer.domElement);
 
 // Create a cube
