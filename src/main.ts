@@ -4,6 +4,7 @@ import {
   DirectionalLight,
   Mesh,
   MeshStandardMaterial,
+  PCFSoftShadowMap,
   PerspectiveCamera,
   PlaneGeometry,
   Scene,
@@ -27,12 +28,15 @@ camera.position.z = 5;
 const renderer = new WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x090909);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 // Create a cube
 const geometry = new BoxGeometry();
 const material = new MeshStandardMaterial({ color: 0x00ff00 });
 const cube = new Mesh(geometry, material);
+cube.castShadow = true;
 scene.add(cube);
 
 // Create a plane
@@ -41,11 +45,13 @@ const groundMaterial = new MeshStandardMaterial({ color: 0x808080 });
 const ground = new Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -1;
+ground.receiveShadow = true;
 scene.add(ground);
 
 // Add a light
 const light = new DirectionalLight(0xffffff, 1);
 light.position.set(0, 5, 0);
+light.castShadow = true;
 scene.add(light);
 
 // Add orbit controls
