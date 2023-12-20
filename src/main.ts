@@ -1,5 +1,14 @@
 import "./style.css";
-import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import {
+  BoxGeometry,
+  DirectionalLight,
+  Mesh,
+  MeshStandardMaterial,
+  PerspectiveCamera,
+  PlaneGeometry,
+  Scene,
+  WebGLRenderer,
+} from "three";
 import { OrbitControls } from "three-stdlib";
 
 // Create a scene
@@ -20,12 +29,34 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x090909);
 document.body.appendChild(renderer.domElement);
 
+// Create a cube
+const geometry = new BoxGeometry();
+const material = new MeshStandardMaterial({ color: 0x00ff00 });
+const cube = new Mesh(geometry, material);
+scene.add(cube);
+
+// Create a plane
+const groundGeometry = new PlaneGeometry(10, 10);
+const groundMaterial = new MeshStandardMaterial({ color: 0x808080 });
+const ground = new Mesh(groundGeometry, groundMaterial);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -1;
+scene.add(ground);
+
+// Add a light
+const light = new DirectionalLight(0xffffff, 1);
+light.position.set(0, 5, 0);
+scene.add(light);
+
 // Add orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 
 // Animation loop
 renderer.setAnimationLoop(() => {
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+
   renderer.render(scene, camera);
 });
 
