@@ -42,6 +42,8 @@ scene.add(cube);
 // Create a plane
 const groundGeometry = new PlaneGeometry(10, 10);
 const groundMaterial = new MeshStandardMaterial({ color: 0x808080 });
+groundMaterial.roughness = 0.6;
+groundMaterial.metalness = 0.4;
 const ground = new Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -1;
